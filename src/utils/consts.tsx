@@ -1,20 +1,30 @@
 import { DataObject } from '../utils/types';
+import { Dropdown } from '../components/Dropdown';
 
 export const DATA: DataObject[] = [{
     name: 'name1',
-    type: 'type1',
+    type: {
+        options: [{value: 'agent-tool', label: "Agent tool"}, {value:'online-store', label: 'Online store'}],
+        selected: {value: 'agent-tool', label: "Agent tool"}
+    },
     typeOfTool: 'tool1',
     extReference: 'ref1',
     active: 'true'
 },{
     name: 'name2',
-    type: 'type2',
+    type: {
+        options: [{value: 'agent-tool', label: "Agent tool"}, {value:'online-store', label: 'Online store'}],
+        selected: {value: 'agent-tool', label: "Agent tool"}
+    },
     typeOfTool: 'tool2',
     extReference: 'ref2',
     active: 'true'
 },{
     name: 'name3',
-    type: 'type3',
+    type: {
+        options: [{value: 'agent-tool', label: "Agent tool"}, {value:'online-store', label: 'Online store'}],
+        selected: { value: 'online-store', label: 'Online store' }
+    },
     typeOfTool: 'tool3',
     extReference: 'ref3',
     active: 'false'
@@ -27,7 +37,8 @@ export const COLUMNS = [
     },
     {
         Header: 'Type',
-        accessor: 'type' as keyof DataObject
+        accessor: 'type.selected' as keyof DataObject,
+        Cell: ({row}: {row: any}) => (<Dropdown row={row} accessor={'type'}/>)
     },
     {
         Header: 'Type of tool',
