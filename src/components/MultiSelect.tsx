@@ -3,7 +3,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useEffect } from 'react';
 import { DataObject } from '../utils/types';
-import { TextField } from '@mui/material';
 import { Field } from 'react-final-form';
 
 const ITEM_HEIGHT = 24;

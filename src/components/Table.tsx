@@ -1,4 +1,4 @@
-import { useTable, useRowSelect, Row } from 'react-table';
+import { useTable, useRowSelect } from 'react-table';
 import { useMemo, useState } from 'react';
 import { COLUMNS, DATA } from '../utils/consts';
 import { Checkbox } from '../components/Checkbox';
@@ -12,7 +12,8 @@ import { Form } from 'react-final-form';
 // There is a bug when selecting values, for some reason the table re-renders twice, therefore somehow losing the
 // data stored in `selectedFlatRows`, which is what I'm using to keep track of active rows.
 // !!
-
+// Also a bunch of ts-ignore tags because the type packages don't seem to be up-to-date, I think?
+// !!
 const Table = () => {
     const columns = useMemo(() => COLUMNS, []);
     const [data, setData] = useState<DataObject[]>(DATA);
