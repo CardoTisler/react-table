@@ -1,4 +1,5 @@
 import React from 'react';
+import { Checkbox as MUICheckbox } from '@mui/material';
 
 export const Checkbox = React.forwardRef(({ indeterminate, ...rest }: any, ref) => {
     const defaultRef = React.useRef();
@@ -10,7 +11,7 @@ export const Checkbox = React.forwardRef(({ indeterminate, ...rest }: any, ref) 
 
     return (
         <>
-            <input type={'checkbox'} ref={resolvedRef} {...rest} />
+            <MUICheckbox type={'checkbox'} ref={resolvedRef} {...rest} />
         </>
     )
 });

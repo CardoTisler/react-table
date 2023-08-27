@@ -1,6 +1,6 @@
 export type DataObject = {
     name: string;
-    type: { // TODO: Make these string[] aswell, less fuckery
+    type: {
         options: string[],
         selected: string;
     };

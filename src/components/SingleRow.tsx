@@ -1,38 +1,22 @@
 import type { Cell, Row } from 'react-table';
 import type { DataObject } from '../utils/types';
-import { useMemo, useState } from 'react';
-import { Button } from '@mui/material';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { Button, TableCell, TableRow } from '@mui/material';
 
 // handle each row state separately to allow updating table row-by-row
-export const SingleRow = ({row, handleSubmit}: {row: Row<DataObject>; handleSubmit: (state: DataObject) => void;}) => {
-	const { original } = row;
-	const initialValue = useMemo(() => original, []);
-	const [state, setState] = useState<DataObject>(initialValue);
-
-	const handleChange = (accessor: keyof DataObject, newValue: any) => {
-		setState(prevState => {
-			return {
-				...prevState,
-				...(typeof prevState[accessor] === 'string' || typeof prevState[accessor] === 'boolean' ? {
-					[accessor]: newValue
-				}: {
-					[accessor]: {
-						...prevState[accessor] as unknown as object,
-						selected: newValue,
-					}
-				})
-			}
-		});
-	}
+export const SingleRow = ({row, selectedRows}: {row: Row<DataObject>; selectedRows: any[]}) => {
+	const { id } = row;
+	const active = selectedRows ? selectedRows.some((row: any) => row.id === id) : false;
 
 	return (
-		<tr {...row.getRowProps()}>
+		<TableRow {...row.getRowProps()}>
 			{
 				row.cells.map((cell: Cell<DataObject>) => (
-					<td {...cell.getCellProps()}>{cell.render('Cell', { handleChange })}</td>
+					// <td {...cell.getCellProps()}>{cell.render('Cell', { active })}</td>
+					<TableCell sx={{'width': '175px'}} {...cell.getCellProps()}>{cell.render('Cell', { active })}</TableCell>
 				))
 			}
-			<Button onClick={() => handleSubmit(state)}>Submit</Button>
-		</tr>
+			{/*<Button onClick={() => handleSubmit(state)}>Submit</Button>*/}
+		</TableRow>
 	)
 }
