@@ -6,7 +6,12 @@ import { SingleRow } from './SingleRow';
 import { DataObject } from '../utils/types';
 import { CellEdit } from './CellEdit';
 import { TableBody, TableCell, TableHead, TableRow } from '@mui/material';
-import { Form, Field } from 'react-final-form';
+import { Form } from 'react-final-form';
+
+// !!
+// There is a bug when selecting values, for some reason the table re-renders twice, therefore somehow losing the
+// data stored in `selectedFlatRows`, which is what I'm using to keep track of active rows.
+// !!
 
 const Table = () => {
     const columns = useMemo(() => COLUMNS, []);
@@ -48,7 +53,10 @@ const Table = () => {
             })
         );
     }
-
+    const onSubmit = (e: any) => {
+        // api call
+        console.log(e)
+    };
     const {
         getTableProps,
         getTableBodyProps,
@@ -59,7 +67,6 @@ const Table = () => {
         selectedFlatRows,
         // @ts-ignore
     } = useTable({ columns, data, meta: { updateData, revertData } }, useRowSelect, (hooks) => {
-        // visibleColumns defines the columns we see in browser
         hooks.visibleColumns.push((columns) => (
             [{
                 id: 'selection',
@@ -72,38 +79,43 @@ const Table = () => {
                 {
                     id: 'edit-row-button',
                     // @ts-ignore
-                    Cell: ({ row }) => (<TableCell align="right" sx={{'width': '200px', 'border': 'none'}}><CellEdit {...row.getToggleRowSelectedProps()} row={row} setEditedRows={setEditedRows} revertData={revertData}/></TableCell>)
+                    Cell: ({ row }) => (<TableCell align="right" sx={{'width': '200px', 'border': 'none'}}><CellEdit {...row.getToggleRowSelectedProps()} row={row} setEditedRows={setEditedRows} revertData={revertData} onSubmit={onSubmit}/></TableCell>)
                 }]
     ))
     });
 
     return (
-        <>
-        <table {...getTableProps()}>
-            <TableHead sx={{'backgroundColor': 'whitesmoke', 'padding': '0'}}>
-            {
-                headerGroups.map((headerGroup) => (
-                    <TableRow {...headerGroup.getHeaderGroupProps()}>
+        <Form onSubmit={onSubmit}
+        render={({handleSubmit}) => (
+            <>
+                <form onSubmit={handleSubmit} noValidate>
+                <table {...getTableProps()}>
+                    <TableHead sx={{'backgroundColor': 'whitesmoke', 'padding': '0'}}>
                         {
-                            headerGroup.headers.map((col) => (
-                                <TableCell {...col.getHeaderProps()}>{col.render('Header')}</TableCell>
+                            headerGroups.map((headerGroup) => (
+                                <TableRow {...headerGroup.getHeaderGroupProps()}>
+                                    {
+                                        headerGroup.headers.map((col) => (
+                                            <TableCell {...col.getHeaderProps()}>{col.render('Header')}</TableCell>
+                                        ))
+                                    }
+                                </TableRow>
                             ))
                         }
-                    </TableRow>
-                ))
-            }
-            </TableHead>
-            <TableBody {...getTableBodyProps()}>
-            {
-                rows.map((row, i) => {
-                    prepareRow(row);
-                    return <SingleRow row={row} key={i} selectedRows={selectedFlatRows} />
-                })
-            }
-            </TableBody>
-        </table>
-        </>
-    )
+                    </TableHead>
+                            <TableBody {...getTableBodyProps()}>
+                                {
+                                    rows.map((row, i) => {
+                                        prepareRow(row);
+                                        return <SingleRow row={row} key={i} selectedRows={selectedFlatRows} />
+                                    })
+                                }
+                            </TableBody>
+                </table>
+                </form>
+            </>
+        )}
+        />)
 }
 
 export default Table;

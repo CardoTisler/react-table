@@ -29,7 +29,7 @@ export const CellEdit = React.forwardRef(({ row, setEditedRows, revertData, ...r
 	return (
 		<Box sx={{'display':'flex-column'}}>
 			<div>
-				<IconButton onClick={handleEditedRows} name="done" sx={{'border-radius': '0%', 'padding': '2px'}}>
+				<IconButton name="done" sx={{'border-radius': '0%', 'padding': '2px'}} type="submit">
 					✔
 				</IconButton>
 			</div>

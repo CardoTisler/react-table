@@ -3,6 +3,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useEffect } from 'react';
 import { DataObject } from '../utils/types';
+import { TextField } from '@mui/material';
+import { Field } from 'react-final-form';
 
 const ITEM_HEIGHT = 24;
 const ITEM_PADDING_TOP = 4;
@@ -16,7 +18,8 @@ const MenuProps = {
 };
 
 export const MultiSelect = ({ props, accessor }: { props: any; accessor: keyof DataObject }) => {
-	const { row, active, updateData } = props;
+	const { row, active} = props;
+	const { updateData } = props.meta;
 	const { original } = row;
 	const initialValue = original[accessor].selected;
 	const [selected, setSelected] = React.useState<string[]>(initialValue);
@@ -41,13 +44,18 @@ export const MultiSelect = ({ props, accessor }: { props: any; accessor: keyof D
 	}
 
 	return (
-		<>
+		<Field name={accessor} type="select" initialValue={selected}>
+			{props => (
 				<Select
+					name={props.input.name}
 					labelId="demo-multiple-name-label"
 					id="demo-multiple-name"
 					multiple
 					value={selected}
-					onChange={onChange}
+					onChange={(e) => {
+						onChange(e);
+						props.input.onChange(e);
+					}}
 					MenuProps={MenuProps}
 					sx={{height: '40px', width: '180px'}}
 				>
@@ -60,6 +68,7 @@ export const MultiSelect = ({ props, accessor }: { props: any; accessor: keyof D
 						</MenuItem>
 					))}
 				</Select>
-		</>
-	);
+			)}
+		</Field>
+	)
 }

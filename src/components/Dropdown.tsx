@@ -1,14 +1,16 @@
 import { SetStateAction, useEffect, useState } from 'react';
-import { MenuItem, Select } from '@mui/material';
+import { MenuItem, Select, TextField } from '@mui/material';
 import { DataObject } from '../utils/types';
+import { Field } from 'react-final-form';
 
 export const Dropdown = (
 	{
 	 	props,
 	 	accessor,
 	}: { props: any; accessor: keyof DataObject })  => {
-	const { row, active, updateData } = props;
-	const {original} = row;
+	const { row, active } = props;
+	const { updateData } = props.meta;
+	const { original } = row;
 	const { options, selected: initialValue }: { options: string[]; selected: string; } = original[accessor];
 	const [selectedValue, setSelectedValue] = useState<string>(initialValue);
 
@@ -28,12 +30,24 @@ export const Dropdown = (
 	}
 
 	return (
-	<Select defaultValue={selectedValue} onChange={onChange} size="small">
+		<Field name={accessor} type={"select"} initialValue={selectedValue}>
+		{props => (
+			<Select
+			defaultValue={selectedValue}
+			onChange={(e) => {
+				onChange(e);
+				props.input.onChange(e);
+		}}
+			size="small"
+			name={props.input.name}
+			>
 		{options.map((value) => {
-				return <MenuItem value={value} key={value}>
-					{value}
-				</MenuItem>
-			})}
-	</Select>
+			return <MenuItem value={value} key={value}>
+		{value}
+			</MenuItem>
+		})}
+			</Select>
+		)}
+	</Field>
 	)
 }
