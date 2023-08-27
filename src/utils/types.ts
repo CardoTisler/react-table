@@ -1,15 +1,13 @@
 export type DataObject = {
     name: string;
-    type: {
-        options: Option[],
-        selected: Option;
+    type: { // TODO: Make these string[] aswell, less fuckery
+        options: string[],
+        selected: string;
     };
-    typeOfTool: string;
+    typeOfTool: {
+        options: string[],
+        selected: string[]
+    };
     extReference: string;
-    active: string;
-}
-
-export type Option = {
-    value: string;
-    label: string;
+    active: boolean;
 }

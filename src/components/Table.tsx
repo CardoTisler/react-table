@@ -1,7 +1,11 @@
-import { useTable, useRowSelect } from 'react-table';
+import { useTable, useRowSelect, Column } from 'react-table';
 import { useMemo } from 'react';
 import { COLUMNS, DATA } from '../utils/consts';
 import { Checkbox } from '../components/Checkbox';
+import { SingleRow } from './SingleRow';
+import { DataObject } from '../utils/types';
+// TODO: Create handleSubmit that accepts state of SingleRow and submits it, pass it to SingleRow
+
 const Table = () => {
     const columns = useMemo(() => COLUMNS, []);
     const data = useMemo(() => DATA, []);
@@ -46,17 +50,9 @@ const Table = () => {
             </thead>
             <tbody {...getTableBodyProps()}>
             {
-                rows.map((row) => {
+                rows.map((row, i) => {
                     prepareRow(row);
-                    return (
-                        <tr {...row.getRowProps()}>
-                            {
-                                row.cells.map((cell) => (
-                                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                ))
-                            }
-                        </tr>
-                    )
+                    return <SingleRow row={row} key={i} handleSubmit={(state: DataObject) => console.log(state)}/>
                 })
             }
             </tbody>
