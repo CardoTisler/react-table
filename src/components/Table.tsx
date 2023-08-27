@@ -8,12 +8,19 @@ import { CellEdit } from './CellEdit';
 import { TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { Form } from 'react-final-form';
 
-// !!
+// mini README
+// !----!
 // There is a bug when selecting values, for some reason the table re-renders twice, therefore somehow losing the
 // data stored in `selectedFlatRows`, which is what I'm using to keep track of active rows.
-// !!
+// !----!
 // Also a bunch of ts-ignore tags because the type packages don't seem to be up-to-date, I think?
-// !!
+// !----!
+// Trying to submit multiple rows at once is bugged because react-final-form only looks at the
+// name attribute and since I used the accessor key for them then always the last row gets submitted.
+// I guess one workaround would be to either append row-index to the name or simply not allow editing
+// multiple rows at once.
+// !----!
+
 const Table = () => {
     const columns = useMemo(() => COLUMNS, []);
     const [data, setData] = useState<DataObject[]>(DATA);
