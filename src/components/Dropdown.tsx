@@ -1,17 +1,16 @@
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { MenuItem, Select } from '@mui/material';
+import { DataObject } from '../utils/types';
 
-// TODO: Replace raw HTML with material-ui
 export const Dropdown = (
 	{
-	 	row,
+	 	props,
 	 	accessor,
-		active,
-		updateData
-	}: any)  => {
+	}: { props: any; accessor: keyof DataObject })  => {
+	const { row, active, updateData } = props;
 	const {original} = row;
-	const { options, selected }: { options: string[]; selected: string; } = original[accessor];
-	const [selectedValue, setSelectedValue] = useState<string>(selected);
+	const { options, selected: initialValue }: { options: string[]; selected: string; } = original[accessor];
+	const [selectedValue, setSelectedValue] = useState<string>(initialValue);
 
 	const onChange = (e: { target: { value: SetStateAction<string>; }; }) => {
 		const { value: newValue } = e.target;
@@ -19,6 +18,10 @@ export const Dropdown = (
 		setSelectedValue(newValue);
 		updateData(row.id, accessor, newValue);
 	}
+
+	useEffect(() => {
+		setSelectedValue(initialValue);
+	}, [initialValue]);
 
 	if (!active) {
 		return <span>{selectedValue}</span>

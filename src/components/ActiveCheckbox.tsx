@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { Checkbox } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
+import { DataObject } from '../utils/types';
 
-export const ActiveCheckbox = ({row, accessor, active, updateData}: any) => {
+export const ActiveCheckbox = ({ props, accessor }: { props: any; accessor: keyof DataObject }) => {
+	const { row, active, updateData } = props;
 	const { original } = row;
 	const initialValue = original[accessor];
 	const [checked, setChecked] = useState<boolean>(initialValue)

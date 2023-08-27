@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
+import { DataObject } from '../utils/types';
 
-export const TextInput = ({row, accessor, active, updateData}: any) => {
-	// need to get value from data state, not row
+export const TextInput = ({ accessor, props }: { props: any; accessor: keyof DataObject }) => {
+	const { row, active, updateData } = props;
 	const { original } = row;
-	// console.log(row);
 	const initialValue = original[accessor];
 	const [text, setText] = useState<string>(initialValue);
 

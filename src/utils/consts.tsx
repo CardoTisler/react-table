@@ -46,26 +46,26 @@ export const COLUMNS = [
     {
         Header: 'Name',
         accessor: 'name' as keyof DataObject,
-        Cell: (props: any) => (<TextInput row={props.row} accessor={'name'} active={props.active} updateData={props.meta.updateData}/>)
+        Cell: (props: any) => (<TextInput props={props} accessor={'name'} />)
     },
     {
         Header: 'Type',
         accessor: 'type' as keyof DataObject,
-        Cell: (props: any) => (<Dropdown row={props.row} accessor={'type'} active={props.active} updateData={props.meta.updateData}/>)
+        Cell: (props: any) => (<Dropdown props={props} accessor={'type'} />)
     },
     {
         Header: 'Type of tool',
         accessor: 'typeOfTool' as keyof DataObject,
-        Cell: (props: any) => (<MultiSelect row={props.row} accessor={'typeOfTool'} active={props.active} updateData={props.meta.updateData}/>)
+        Cell: (props: any) => (<MultiSelect props={props} accessor={'typeOfTool'} />)
     },
     {
         Header: 'External Reference',
         accessor: 'extReference' as keyof DataObject,
-        Cell: (props: any) => (<TextInput row={props.row} accessor={'extReference'} active={props.active} updateData={props.meta.updateData}/>)
+        Cell: (props: any) => (<TextInput props={props} accessor={'extReference'} />)
     },
     {
         Header: 'Active',
         accessor: 'active' as keyof DataObject,
-        Cell: (props: any) => (<ActiveCheckbox row={props.row} accessor={'active'} active={props.active} props={props} updateData={props.meta.updateData}/>)
+        Cell: (props: any) => (<ActiveCheckbox props={props} accessor={'active'} />)
     }
 ]

@@ -1,4 +1,4 @@
-import { useTable, useRowSelect } from 'react-table';
+import { useTable, useRowSelect, Row } from 'react-table';
 import { useMemo, useState } from 'react';
 import { COLUMNS, DATA } from '../utils/consts';
 import { Checkbox } from '../components/Checkbox';
@@ -6,6 +6,7 @@ import { SingleRow } from './SingleRow';
 import { DataObject } from '../utils/types';
 import { CellEdit } from './CellEdit';
 import { TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { Form, Field } from 'react-final-form';
 
 const Table = () => {
     const columns = useMemo(() => COLUMNS, []);
@@ -79,7 +80,7 @@ const Table = () => {
     return (
         <>
         <table {...getTableProps()}>
-            <TableHead sx={{'background-color': 'whitesmoke', 'padding': '0'}}>
+            <TableHead sx={{'backgroundColor': 'whitesmoke', 'padding': '0'}}>
             {
                 headerGroups.map((headerGroup) => (
                     <TableRow {...headerGroup.getHeaderGroupProps()}>
@@ -101,11 +102,6 @@ const Table = () => {
             }
             </TableBody>
         </table>
-            {JSON.stringify(
-                {
-                    selectedFlatRows: selectedFlatRows.map((row: any) => row.original)
-            }, null, 4)
-            }
         </>
     )
 }

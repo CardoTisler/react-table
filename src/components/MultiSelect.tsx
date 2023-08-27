@@ -1,8 +1,8 @@
 import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useEffect } from 'react';
+import { DataObject } from '../utils/types';
 
 const ITEM_HEIGHT = 24;
 const ITEM_PADDING_TOP = 4;
@@ -14,8 +14,9 @@ const MenuProps = {
 		},
 	},
 };
-// TODO: Fix UI, currently its floating, should be parallel with the rest
-export const MultiSelect = ({row, accessor, active, updateData}: any) => {
+
+export const MultiSelect = ({ props, accessor }: { props: any; accessor: keyof DataObject }) => {
+	const { row, active, updateData } = props;
 	const { original } = row;
 	const initialValue = original[accessor].selected;
 	const [selected, setSelected] = React.useState<string[]>(initialValue);
@@ -36,7 +37,6 @@ export const MultiSelect = ({row, accessor, active, updateData}: any) => {
 	}, [initialValue])
 
 	if (!active) {
-		console.log(selected);
 		return <span>{selected.length ? selected.join(', ') : '-'}</span>
 	}
 

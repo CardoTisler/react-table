@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Button, Checkbox } from '@mui/material';
+import React from 'react';
+import { Box, Checkbox, IconButton } from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 
 export const CellEdit = React.forwardRef(({ row, setEditedRows, revertData, ...rest }: any, ref) => {
@@ -27,13 +27,17 @@ export const CellEdit = React.forwardRef(({ row, setEditedRows, revertData, ...r
 	}
 
 	return (
-		<>
-			<button onClick={handleEditedRows} name="cancel">
-				X
-			</button>{' '}
-			<button onClick={handleEditedRows} name="done">
-				✔
-			</button>
-		</>
+		<Box sx={{'display':'flex-column'}}>
+			<div>
+				<IconButton onClick={handleEditedRows} name="done" sx={{'border-radius': '0%', 'padding': '2px'}}>
+					✔
+				</IconButton>
+			</div>
+			<div>
+				<IconButton onClick={handleEditedRows} name="cancel" sx={{'border-radius': '0%', 'padding': '2px', 'margin-right': '4px'}}>
+					X
+				</IconButton>
+			</div>
+		</Box>
 	)
 });
