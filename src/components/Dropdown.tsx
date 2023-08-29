@@ -33,7 +33,7 @@ export const Dropdown = (
 		<Field name={accessor} type={"select"} initialValue={selectedValue}>
 		{props => (
 			<Select
-			defaultValue={selectedValue}
+			value={selectedValue}
 			onChange={(e) => {
 				onChange(e);
 				props.input.onChange(e);

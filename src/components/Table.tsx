@@ -11,6 +11,7 @@ const Table = () => {
     const columns = useMemo(() => COLUMNS, []);
     const [data, setData] = useState<DataObject[]>(DATA);
     const [originalData, setOriginalData] = useState<DataObject[]>(DATA);
+    const [submittedFieldId, setSubmittedFieldId] = useState<number | null>(null);
 
     const revertData = (rowIndex: number, revert: boolean) => {
         if (revert) {
@@ -26,11 +27,10 @@ const Table = () => {
         }
     }
 
-    const onSubmit = (data: { name: string; type: string; typeOfTool: string[]; extReference: string; active: boolean; }) => {
+    const onSubmit = (data: {name: string; type: string; typeOfTool: string[]; extReference: string; active: boolean; }) => {
         // api call
-        // TODO: Figure out how to dynamically get updated row id
         setData((prevState) => prevState.map((obj, index) => {
-            if (index === 0) {
+            if (index === submittedFieldId) {
                 return {
                     ...obj,
                     name: data.name,
@@ -59,13 +59,13 @@ const Table = () => {
         hooks.visibleColumns.push((columns) => (
             [{
                 id: 'selection',
-                Header: ({}) => (<Checkbox />),
+                Header: () => (<Checkbox />),
                 Cell: () => (<Checkbox />)
             },
             ...columns,
             {
                 id: 'edit-row-button',
-                Cell: ({ row }: { row: Row<DataObject>}) => (<TableCell align="right" sx={{'width': '200px', 'border': 'none'}}><CellEdit {...row.getToggleRowSelectedProps()} row={row} revertData={revertData} /></TableCell>)
+                Cell: ({ row }: { row: Row<DataObject>}) => (<TableCell align="right" sx={{'width': '200px', 'border': 'none'}}><CellEdit {...row.getToggleRowSelectedProps()} row={row} revertData={revertData} setFieldId={setSubmittedFieldId}/></TableCell>)
             }]
     ))
     });

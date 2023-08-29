@@ -6,7 +6,5 @@ A
 public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
 =
 src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
-;
-src/App.css,a\a\aa7165aefcf8ee3d73539e99ab007daf1aa18d8d
 =
 src/index.tsx,5\a\5ab44fe33ca96299f51ad4778a73e425b92bf439

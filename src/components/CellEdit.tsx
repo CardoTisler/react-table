@@ -5,9 +5,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import { DataObject } from '../utils/types';
 import { Row } from 'react-table';
-export const CellEdit = React.forwardRef(({ row, revertData, ...rest }: { row: Row<DataObject>; revertData: (index: number, revert: boolean) => void}, ref) => {
+export const CellEdit = React.forwardRef(({ row, revertData, setFieldId, ...rest }: {setFieldId: (n: number) => void; row: Row<DataObject>; revertData: (index: number, revert: boolean) => void}, ref) => {
 	const defaultRef = React.useRef();
-	// Not sure how to fix this any type.
+	// Not really sure how to fix this any type.
 	const resolvedRef: any = ref || defaultRef;
 	let active = row.isSelected;
 
@@ -29,12 +29,12 @@ export const CellEdit = React.forwardRef(({ row, revertData, ...rest }: { row: R
 	return (
 		<Box sx={{'display':'flex-column'}}>
 			<div>
-				<IconButton name="done" sx={{'border-radius': '0%', 'padding': '2px'}} type="submit">
+				<IconButton name="done" sx={{'borderRadius': '0%', 'padding': '2px'}} type="submit" onClick={() => setFieldId(row.index)}>
 					<CheckIcon />
 				</IconButton>
 			</div>
 			<div >
-				<IconButton onClick={handleEditedRows} name="cancel" sx={{'border-radius': '0%', 'padding': '2px'}}>
+				<IconButton onClick={handleEditedRows} name="cancel" sx={{'borderRadius': '0%', 'padding': '2px'}}>
 					<CloseIcon />
 				</IconButton>
 			</div>
