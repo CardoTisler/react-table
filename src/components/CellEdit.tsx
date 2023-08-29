@@ -11,7 +11,7 @@ export const CellEdit = React.forwardRef(({ row, revertData, setFieldId, ...rest
 	const resolvedRef: any = ref || defaultRef;
 	let active = row.isSelected;
 
-	const handleEditedRows = (e: { currentTarget: { name: string; }; }) => {
+	const handleEditedRows = (e:  React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		const elName = e.currentTarget.name;
 		if (elName !== 'edit') {
 			revertData(row.index, e.currentTarget.name === 'cancel');
