@@ -11,13 +11,6 @@ export const CellEdit = React.forwardRef(({ row, revertData, setFieldId, ...rest
 	const resolvedRef: any = ref || defaultRef;
 	let active = row.isSelected;
 
-	const handleEditedRows = (e:  React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		const elName = e.currentTarget.name;
-		if (elName !== 'edit') {
-			revertData(row.index, e.currentTarget.name === 'cancel');
-		}
-	}
-
 	if (!active) {
 		return (
 			<>
@@ -34,7 +27,7 @@ export const CellEdit = React.forwardRef(({ row, revertData, setFieldId, ...rest
 				</IconButton>
 			</div>
 			<div >
-				<IconButton onClick={handleEditedRows} name="cancel" sx={{'borderRadius': '0%', 'padding': '2px'}}>
+				<IconButton onClick={() => revertData(row.index, true)} name="cancel" sx={{'borderRadius': '0%', 'padding': '2px'}}>
 					<CloseIcon />
 				</IconButton>
 			</div>

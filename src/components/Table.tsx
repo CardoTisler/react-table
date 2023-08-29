@@ -13,19 +13,12 @@ const Table = () => {
     const [originalData, setOriginalData] = useState<DataObject[]>(DATA);
     const [submittedFieldId, setSubmittedFieldId] = useState<number | null>(null);
 
-    const revertData = (rowIndex: number, revert: boolean) => {
-        if (revert) {
-            setData((prevData) =>
-                prevData.map((row, index) =>
-                    index === rowIndex ? originalData[rowIndex] : row
-                )
-            );
-        } else {
-            setOriginalData((prevData) =>
-                prevData.map((row, index) => (index === rowIndex ? data[rowIndex] : row))
-            );
-        }
-    }
+    const revertData = (rowIndex: number) => {
+        setData((prevData) =>
+            prevData.map((row, index) =>
+                index === rowIndex ? originalData[rowIndex] : row
+            ));
+    };
 
     const onSubmit = (data: FormDataObject) => {
         // api call

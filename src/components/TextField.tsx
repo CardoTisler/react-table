@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import { DataObject } from '../utils/types';
 import { Field } from 'react-final-form';
@@ -14,7 +14,7 @@ export const TextInput = ({ accessor, props }: { props: CellProps<DataObject>; a
 		setText(initialValue);
 	}, [initialValue, props.data]);
 
-	const onChange = (e: { target: { value: string; }; }) => {
+	const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { value: newValue } = e.target;
 		setText(newValue);
 	}
