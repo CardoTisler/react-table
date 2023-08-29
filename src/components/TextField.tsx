@@ -2,21 +2,17 @@ import { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import { DataObject } from '../utils/types';
 import { Field } from 'react-final-form';
+import { CellProps } from 'react-table';
 
-export const TextInput = ({ accessor, props }: { props: any; accessor: keyof DataObject }) => {
+export const TextInput = ({ accessor, props }: { props: CellProps<DataObject>; accessor: keyof DataObject }) => {
 	const { row, active } = props;
-	const { updateData } = props.meta;
 	const { original } = row;
-	const initialValue = original[accessor];
+	const initialValue = original[accessor] as string;
 	const [text, setText] = useState<string>(initialValue);
 
 	useEffect(() => {
 		setText(initialValue);
-	}, [initialValue]);
-
-	// const onBlur = () => {
-	// 	updateData(row.id, accessor, text);
-	// }
+	}, [initialValue, props.data]);
 
 	const onChange = (e: { target: { value: string; }; }) => {
 		const { value: newValue } = e.target;
@@ -39,7 +35,6 @@ export const TextInput = ({ accessor, props }: { props: any; accessor: keyof Dat
 					size="small"
 					variant="outlined"
 					defaultValue={text}
-					// onBlur={onBlur}
 				/>
 			</div>
 		)}

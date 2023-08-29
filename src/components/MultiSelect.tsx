@@ -4,6 +4,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useEffect } from 'react';
 import { DataObject } from '../utils/types';
 import { Field } from 'react-final-form';
+import { CellProps } from 'react-table';
 
 const ITEM_HEIGHT = 24;
 const ITEM_PADDING_TOP = 4;
@@ -16,13 +17,11 @@ const MenuProps = {
 	},
 };
 
-export const MultiSelect = ({ props, accessor }: { props: any; accessor: keyof DataObject }) => {
+export const MultiSelect = ({ props, accessor }: { props: CellProps<DataObject>; accessor: keyof DataObject; }) => {
 	const { row, active} = props;
-	const { updateData } = props.meta;
 	const { original } = row;
-	const initialValue = original[accessor].selected;
+	const { selected: initialValue, options} = original[accessor] as { options: string[]; selected: string[] };
 	const [selected, setSelected] = React.useState<string[]>(initialValue);
-	const { options }: { options: string[] } = original[accessor];
 
 	const onChange = (event: SelectChangeEvent<typeof selected>) => {
 		const {
@@ -31,12 +30,11 @@ export const MultiSelect = ({ props, accessor }: { props: any; accessor: keyof D
 
 		const newValue = typeof value === 'string' ? value.split(',') : value
 		setSelected(newValue);
-		// updateData(row.id, accessor, newValue);
 	};
 
 	useEffect(() => {
 		setSelected(initialValue);
-	}, [initialValue])
+	}, [initialValue, props.data])
 
 	if (!active) {
 		return <span>{selected.length ? selected.join(', ') : '-'}</span>

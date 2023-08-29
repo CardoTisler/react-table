@@ -3,17 +3,16 @@ import { Box, Checkbox, IconButton } from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
-export const CellEdit = React.forwardRef(({ row, setEditedRows, revertData, ...rest }: any, ref) => {
+import { DataObject } from '../utils/types';
+import { Row } from 'react-table';
+export const CellEdit = React.forwardRef(({ row, revertData, ...rest }: { row: Row<DataObject>; revertData: (index: number, revert: boolean) => void}, ref) => {
 	const defaultRef = React.useRef();
+	// Not sure how to fix this any type.
 	const resolvedRef: any = ref || defaultRef;
 	let active = row.isSelected;
 
-	const handleEditedRows = (e: any) => {
+	const handleEditedRows = (e: { currentTarget: { name: string; }; }) => {
 		const elName = e.currentTarget.name;
-		setEditedRows((old: []) => ({
-			...old,
-			[row.id]: !old[row.id],
-		}));
 		if (elName !== 'edit') {
 			revertData(row.index, e.currentTarget.name === 'cancel');
 		}

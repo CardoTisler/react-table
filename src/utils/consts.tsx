@@ -3,6 +3,7 @@ import { Dropdown } from '../components/Dropdown';
 import { MultiSelect } from '../components/MultiSelect';
 import { TextInput } from '../components/TextField';
 import { ActiveCheckbox } from '../components/ActiveCheckbox';
+import { CellProps, Column } from 'react-table';
 
 export const DATA: DataObject[] = [{
     name: 'Agent Portal',
@@ -42,30 +43,30 @@ export const DATA: DataObject[] = [{
     active: false
 }];
 
-export const COLUMNS = [
+export const COLUMNS: Column<DataObject>[] = [
     {
         Header: 'Name',
         accessor: 'name' as keyof DataObject,
-        Cell: (props: any) => (<TextInput props={props} accessor={'name'} />)
+        Cell: (props: CellProps<DataObject>) => (<TextInput props={props} accessor={'name'} />)
     },
     {
         Header: 'Type',
         accessor: 'type' as keyof DataObject,
-        Cell: (props: any) => (<Dropdown props={props} accessor={'type'} />)
+        Cell: (props: CellProps<DataObject>) => (<Dropdown props={props} accessor={'type'} />)
     },
     {
         Header: 'Type of tool',
         accessor: 'typeOfTool' as keyof DataObject,
-        Cell: (props: any) => (<MultiSelect props={props} accessor={'typeOfTool'} />)
+        Cell: (props: CellProps<DataObject>) => (<MultiSelect props={props} accessor={'typeOfTool'} />)
     },
     {
         Header: 'External Reference',
         accessor: 'extReference' as keyof DataObject,
-        Cell: (props: any) => (<TextInput props={props} accessor={'extReference'} />)
+        Cell: (props: CellProps<DataObject>) => (<TextInput props={props} accessor={'extReference'} />)
     },
     {
         Header: 'Active',
         accessor: 'active' as keyof DataObject,
-        Cell: (props: any) => (<ActiveCheckbox props={props} accessor={'active'} />)
+        Cell: (props: CellProps<DataObject>) => (<ActiveCheckbox props={props} accessor={'active'} />)
     }
 ]

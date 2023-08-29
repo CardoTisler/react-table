@@ -1,29 +1,25 @@
 import { useEffect, useState } from 'react';
 import { Checkbox } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
-import ClearIcon from '@mui/icons-material/Clear';
 import { DataObject } from '../utils/types';
 import { Field } from 'react-final-form';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { CheckBox } from '@mui/icons-material';
+import { CellProps } from 'react-table';
 
-export const ActiveCheckbox = ({ props, accessor }: { props: any; accessor: keyof DataObject }) => {
+export const ActiveCheckbox = ({ props, accessor }: { props: CellProps<DataObject>; accessor: keyof DataObject }) => {
 	const { row, active } = props;
-	const { updateData } = props.meta;
 	const { original } = row;
-	const initialValue = original[accessor];
+	const initialValue = original[accessor] as boolean;
 	const [checked, setChecked] = useState<boolean>(initialValue)
 
 	const onChange = (e: any) => {
 		const { checked: newValue } = e.target;
 		setChecked(newValue);
-		// updateData(row.id, accessor, newValue);
 	}
 
 	useEffect(() => {
 		setChecked(initialValue)
-	}, [initialValue])
+	}, [initialValue, props.data])
 
 	if (!active) {
 		return checked ? <CheckIcon sx={{'color': 'green'}}/> : <CheckBoxOutlineBlankIcon sx={{'color': 'gray'}} />;
