@@ -82,7 +82,7 @@ const Table = () => {
                                 <TableRow {...headerGroup.getHeaderGroupProps()} sx={{height: '30px'}}>
                                     {
                                         headerGroup.headers.map((col, index) => (
-                                            <TableCell sx={index === 0 ? { padding: '0px 16px 0px 16px'} : {minWidth: '180px', padding: '0px 16px 0px 16px'}} align="left" {...col.getHeaderProps()}>{col.render('Header')}</TableCell>
+                                            <TableCell sx={getSx(index)} align="left" {...col.getHeaderProps()}>{col.render('Header')}</TableCell>
                                         ))
                                     }
                                 </TableRow>
@@ -104,4 +104,7 @@ const Table = () => {
         />)
 }
 
+function getSx(index: number) {
+    return index === 0 ? { padding: '0px 16px 0px 16px'} : {minWidth: '180px', padding: '0px 16px 0px 16px'}
+}
 export default Table;
