@@ -97,14 +97,14 @@ const Table = () => {
         render={({handleSubmit}) => (
             <>
                 <form onSubmit={handleSubmit} noValidate>
-                <table {...getTableProps()}>
+                <table {...getTableProps()} cellSpacing={0}>
                     <TableHead sx={{'backgroundColor': 'whitesmoke', 'padding': '0'}}>
                         {
                             headerGroups.map((headerGroup) => (
-                                <TableRow {...headerGroup.getHeaderGroupProps()}>
+                                <TableRow {...headerGroup.getHeaderGroupProps()} sx={{height: '30px'}}>
                                     {
-                                        headerGroup.headers.map((col) => (
-                                            <TableCell {...col.getHeaderProps()}>{col.render('Header')}</TableCell>
+                                        headerGroup.headers.map((col, index) => (
+                                            <TableCell sx={index === 0 ? { padding: '0px 16px 0px 16px'} : {minWidth: '180px', padding: '0px 16px 0px 16px'}} align="left" {...col.getHeaderProps()}>{col.render('Header')}</TableCell>
                                         ))
                                     }
                                 </TableRow>

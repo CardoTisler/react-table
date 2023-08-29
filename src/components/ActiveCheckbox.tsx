@@ -4,6 +4,9 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { DataObject } from '../utils/types';
 import { Field } from 'react-final-form';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { CheckBox } from '@mui/icons-material';
 
 export const ActiveCheckbox = ({ props, accessor }: { props: any; accessor: keyof DataObject }) => {
 	const { row, active } = props;
@@ -15,7 +18,7 @@ export const ActiveCheckbox = ({ props, accessor }: { props: any; accessor: keyo
 	const onChange = (e: any) => {
 		const { checked: newValue } = e.target;
 		setChecked(newValue);
-		updateData(row.id, accessor, newValue);
+		// updateData(row.id, accessor, newValue);
 	}
 
 	useEffect(() => {
@@ -23,7 +26,7 @@ export const ActiveCheckbox = ({ props, accessor }: { props: any; accessor: keyo
 	}, [initialValue])
 
 	if (!active) {
-		return checked ? <CheckIcon sx={{'color': 'green'}}/> : <ClearIcon sx={{'color': 'red'}} />;
+		return checked ? <CheckIcon sx={{'color': 'green'}}/> : <CheckBoxOutlineBlankIcon sx={{'color': 'gray'}} />;
 	}
 
 	return <Field name={accessor} type={"checkbox"} initialValue={checked}>
@@ -38,7 +41,7 @@ export const ActiveCheckbox = ({ props, accessor }: { props: any; accessor: keyo
 						props.input.onChange(e);
 					}}
 					checkedIcon={<CheckIcon sx={{'color': 'green'}}/>}
-					icon={<ClearIcon sx={{'color': 'red'}} />}
+					icon={<CheckBoxOutlineBlankIcon />}
 				/>
 			</div>
 		)}

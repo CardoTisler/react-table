@@ -18,7 +18,7 @@ export const Dropdown = (
 		const { value: newValue } = e.target;
 
 		setSelectedValue(newValue);
-		updateData(row.id, accessor, newValue);
+		// updateData(row.id, accessor, newValue);
 	}
 
 	useEffect(() => {
@@ -40,6 +40,7 @@ export const Dropdown = (
 		}}
 			size="small"
 			name={props.input.name}
+			sx={{width: '100%'}}
 			>
 		{options.map((value) => {
 			return <MenuItem value={value} key={value}>

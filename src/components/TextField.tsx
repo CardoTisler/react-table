@@ -14,9 +14,9 @@ export const TextInput = ({ accessor, props }: { props: any; accessor: keyof Dat
 		setText(initialValue);
 	}, [initialValue]);
 
-	const onBlur = () => {
-		updateData(row.id, accessor, text);
-	}
+	// const onBlur = () => {
+	// 	updateData(row.id, accessor, text);
+	// }
 
 	const onChange = (e: { target: { value: string; }; }) => {
 		const { value: newValue } = e.target;
@@ -39,7 +39,7 @@ export const TextInput = ({ accessor, props }: { props: any; accessor: keyof Dat
 					size="small"
 					variant="outlined"
 					defaultValue={text}
-					onBlur={onBlur}
+					// onBlur={onBlur}
 				/>
 			</div>
 		)}

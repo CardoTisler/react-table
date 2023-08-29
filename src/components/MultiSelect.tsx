@@ -31,7 +31,7 @@ export const MultiSelect = ({ props, accessor }: { props: any; accessor: keyof D
 
 		const newValue = typeof value === 'string' ? value.split(',') : value
 		setSelected(newValue);
-		updateData(row.id, accessor, newValue);
+		// updateData(row.id, accessor, newValue);
 	};
 
 	useEffect(() => {
@@ -57,6 +57,7 @@ export const MultiSelect = ({ props, accessor }: { props: any; accessor: keyof D
 					}}
 					MenuProps={MenuProps}
 					sx={{height: '40px', width: '180px'}}
+					size="small"
 				>
 					{options.map((value) => (
 						<MenuItem
