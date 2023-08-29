@@ -10,7 +10,7 @@ export const SingleRow = ({ row }: { row: Row<DataObject> }) => {
 	const active = row.isSelected;
 
 	return (
-		<TableRow {...row.getRowProps()} sx={ active ? {'backgroundColor': 'rgba(162, 3, 253, 0.1)'} : {}}>
+		<TableRow {...row.getRowProps()} sx={ active ? {'backgroundColor': 'rgb(237,230,255)'} : {}}>
 			{
 				row.cells.map((cell: Cell<DataObject>, index) => (
 					<TableCell sx={getSx(index)} {...cell.getCellProps()}>{cell.render('Cell', { active })}</TableCell>

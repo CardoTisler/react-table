@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Checkbox } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import { DataObject } from '../utils/types';
@@ -12,7 +12,7 @@ export const ActiveCheckbox = ({ props, accessor }: { props: CellProps<DataObjec
 	const initialValue = original[accessor] as boolean;
 	const [checked, setChecked] = useState<boolean>(initialValue)
 
-	const onChange = (e: any) => {
+	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { checked: newValue } = e.target;
 		setChecked(newValue);
 	}
