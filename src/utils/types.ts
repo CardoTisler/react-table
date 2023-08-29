@@ -11,3 +11,11 @@ export type DataObject = {
     extReference: string;
     active: boolean;
 }
+
+export type FormDataObject = {
+    name: string;
+    type: string;
+    typeOfTool: string[];
+    extReference: string;
+    active: boolean;
+}

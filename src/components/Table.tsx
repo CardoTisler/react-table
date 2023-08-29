@@ -2,7 +2,7 @@ import { useTable, useRowSelect, Row } from 'react-table';
 import { useMemo, useState } from 'react';
 import { COLUMNS, DATA } from '../utils/consts';
 import { SingleRow } from './SingleRow';
-import { DataObject } from '../utils/types';
+import { DataObject, FormDataObject } from '../utils/types';
 import { CellEdit } from './CellEdit';
 import { TableBody, TableCell, TableHead, TableRow, Checkbox } from '@mui/material';
 import { Form } from 'react-final-form';
@@ -27,7 +27,7 @@ const Table = () => {
         }
     }
 
-    const onSubmit = (data: {name: string; type: string; typeOfTool: string[]; extReference: string; active: boolean; }) => {
+    const onSubmit = (data: FormDataObject) => {
         // api call
         setData((prevState) => prevState.map((obj, index) => {
             if (index === submittedFieldId) {
